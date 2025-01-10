@@ -1,0 +1,22 @@
+fetch_news_task:
+  description: >
+    Fetch and clean news articles from the RSS feed {rss_url}.
+    Extract all the details from the rss feed and enrich the description from the associated link. 
+    Maintain all the statistics and numbers and finally produce a cleaner version of the news.
+  expected_output: >
+    A full reports with the mains topics. 
+    The language MUST be italian.
+  agent: news_parser
+
+reporting_task:
+  description: >
+    Review the context you got and expand each topic into a full section for a markdown report.
+    Make sure the report is detailed and contains any and all relevant information.
+  expected_output: >
+    A fully fledge reports with the mains topics, each with a full section of information.
+    The language MUST be italian.
+    The markdown file should be around 6 parapgraphs.
+    Include emojis aside titles.
+    Formatted as markdown without '```'.
+  agent: reporting_analyst
+  output_file: report.md
