@@ -1,0 +1,24 @@
+[project]
+name = "podcast_creator"
+version = "0.1.0"
+description = "podcast_creator using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.95.0,<1.0.0",
+    "feedparser"
+]
+
+[project.scripts]
+podcast_creator = "podcast_creator.main:run"
+run_crew = "podcast_creator.main:run"
+train = "podcast_creator.main:train"
+replay = "podcast_creator.main:replay"
+test = "podcast_creator.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
