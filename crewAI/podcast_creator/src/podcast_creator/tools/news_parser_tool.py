@@ -12,12 +12,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-HOW_MANY_NEWS_TO_FETCH = int(os.getenv("HOW_MANY_NEWS_TO_FETCH"))
 HOW_MANY_PARAGRAPHS_TO_FETCH = int(os.getenv("HOW_MANY_PARAGRAPHS_TO_FETCH"))
 
 class NewsParserToolInput(BaseModel):
     """Input schema for NewsParserTool."""
     rss_url: str = Field(..., description="URL of the RSS feed to parse.")
+    how_many_news_to_fetch: int = Field(..., description="Number of news items to fetch.")
 
 class NewsParserTool(BaseTool):
     name: str = "News Parsing Tool"
@@ -27,14 +27,14 @@ class NewsParserTool(BaseTool):
     args_schema: Type[BaseModel] = NewsParserToolInput
 
 
-    def _run(self, rss_url: str) -> list:
+    def _run(self, rss_url: str, how_many_news_to_fetch: int) -> list:
         """
         Fetch and clean news articles from the RSS feed.
         """
         feed = feedparser.parse(rss_url)
         articles = []
 
-        for entry in tqdm.tqdm(feed.entries[:HOW_MANY_NEWS_TO_FETCH], desc="Fetching News"):
+        for entry in tqdm.tqdm(feed.entries[:how_many_news_to_fetch], desc="Fetching News"):
             title = self.clean_html(entry.title)
             description = self.clean_html(entry.description)
             link = entry.link
@@ -50,6 +50,7 @@ class NewsParserTool(BaseTool):
             })
 
         return articles
+
 
     def clean_html(self, raw_html: str) -> str:
         """Removes HTML tags, whitespace, and decodes entities."""

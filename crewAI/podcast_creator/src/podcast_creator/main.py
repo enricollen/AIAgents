@@ -7,6 +7,7 @@ from src.podcast_creator.tools.text_to_speech_tool import TextToSpeechTool
 load_dotenv()
 
 RSS_FEED_URL = str(os.getenv("RSS_FEED_URL"))
+HOW_MANY_NEWS_TO_FETCH = int(os.getenv("HOW_MANY_NEWS_TO_FETCH"))
 
 # Agents for news parsing and reporting
 news_parser = Agent(
@@ -35,7 +36,7 @@ reporting_analyst = Agent(
 # Tasks for news processing
 fetch_news_task = Task(
     description=(
-        "Fetch and clean news articles from the RSS feed {rss_url}. "
+        "Fetch and clean up to {how_many_news_to_fetch} news articles from the RSS feed {rss_url}. "
         "Extract all the details from the RSS feed and enrich the description from the associated link. "
         "Maintain all the statistics and numbers and finally produce a cleaner version of the news."
     ),
@@ -104,7 +105,7 @@ audio_task = Task(
 if __name__ == "__main__":
     # First crew for news gathering
     news_crew = Crew(agents=[news_parser, reporting_analyst], tasks=[fetch_news_task, reporting_task])
-    news_result = str(news_crew.kickoff(inputs={"rss_url": RSS_FEED_URL}))
+    news_result = str(news_crew.kickoff(inputs={"rss_url": RSS_FEED_URL, "how_many_news_to_fetch": HOW_MANY_NEWS_TO_FETCH}))
     print("News Result:", news_result)
     if not os.path.exists("news"): os.makedirs("news")
     output_file = "news/news_result.txt"
