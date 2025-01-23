@@ -1,0 +1,23 @@
+[project]
+name = "podcast_creator_from_url_ollama_coquiTTS"
+version = "0.1.0"
+description = "podcast_creator_from_url_ollama_coquiTTS using crewAI"
+authors = [{ name = "enricollen", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.95.0,<1.0.0"
+]
+
+[project.scripts]
+podcast_creator_from_url_ollama_coquiTTS = "podcast_creator_from_url.main:run"
+run_crew = "podcast_creator_from_url_ollama_coquiTTS.main:run"
+train = "podcast_creator_from_url_ollama_coquiTTS.main:train"
+replay = "podcast_creator_from_url_ollama_coquiTTS.main:replay"
+test = "podcast_creator_from_url_ollama_coquiTTS.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
