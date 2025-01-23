@@ -2,8 +2,8 @@ import streamlit as st
 import os
 from crewai import Crew, Agent, Task
 from dotenv import load_dotenv
-from src.podcast_creator.tools.news_parser_tool import NewsParserTool
-from src.podcast_creator.tools.text_to_speech_tool import TextToSpeechTool
+from src.podcast_creator_from_rss_feed_openai_api.tools.news_parser_tool import NewsParserTool
+from src.podcast_creator_from_rss_feed_openai_api.tools.text_to_speech_tool import TextToSpeechTool
 
 load_dotenv()
 
@@ -56,7 +56,8 @@ reporting_task = Task(
 script_task = Task(
     description=("Write a podcast script based on this news content: {news_content}."
                 "Ensure the script is structured as a dialogue in Italian."
-                "If there are multiple news articles, produce a smaller script for each."),
+                "If there are multiple news articles, produce a smaller script for each."
+                "Always start the script saying the name of the podcast: 'SaniTrend di Helaglobe'."),
     expected_output="A structured podcast script in Italian.",
     agent=podcast_writer
 )
@@ -110,10 +111,11 @@ if st.button("Generate News"):
 if st.button("Generate Podcast"):
     st.write("🎙 Generating podcast...")
 
-    # check if news has been created before proceeding with podcast generation
+    # check news has been created before proceeding with podcast generation
     if not st.session_state["news_result"]:
         st.error("Please generate the news first.")
     else:
+        # trigger the podcast crew
         podcast_crew = Crew(agents=[podcast_writer, audio_generator], tasks=[script_task, audio_task])
         podcast_result = podcast_crew.kickoff(inputs={"news_content": st.session_state["news_result"]})
 

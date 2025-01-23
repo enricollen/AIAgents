@@ -1,7 +1,7 @@
 [project]
-name = "podcast_creator"
+name = "podcast_creator_from_rss_feed_openai_api"
 version = "0.1.0"
-description = "podcast_creator using crewAI"
+description = "podcast_creator_from_rss_feed_openai_api using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.13"
 dependencies = [
@@ -10,11 +10,11 @@ dependencies = [
 ]
 
 [project.scripts]
-podcast_creator = "podcast_creator.main:run"
-run_crew = "podcast_creator.main:run"
-train = "podcast_creator.main:train"
-replay = "podcast_creator.main:replay"
-test = "podcast_creator.main:test"
+podcast_creator_from_rss_feed_openai_api = "podcast_creator_from_rss_feed_openai_api.main:run"
+run_crew = "podcast_creator_from_rss_feed_openai_api.main:run"
+train = "podcast_creator_from_rss_feed_openai_api.main:train"
+replay = "podcast_creator_from_rss_feed_openai_api.main:replay"
+test = "podcast_creator_from_rss_feed_openai_api.main:test"
 
 [build-system]
 requires = ["hatchling"]

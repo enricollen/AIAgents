@@ -1,8 +1,8 @@
 import os
 from crewai import Crew, Agent, Task
 from dotenv import load_dotenv
-from src.podcast_creator.tools.news_parser_tool import NewsParserTool
-from src.podcast_creator.tools.text_to_speech_tool import TextToSpeechTool
+from src.podcast_creator_from_rss_feed_openai_api.tools.news_parser_tool import NewsParserTool
+from src.podcast_creator_from_rss_feed_openai_api.tools.text_to_speech_tool_elevenlabs import TextToSpeechTool
 
 load_dotenv()
 
@@ -104,17 +104,17 @@ audio_task = Task(
 
 if __name__ == "__main__":
     # First crew for news gathering
-    news_crew = Crew(agents=[news_parser, reporting_analyst], tasks=[fetch_news_task, reporting_task])
-    news_result = str(news_crew.kickoff(inputs={"rss_url": RSS_FEED_URL, "how_many_news_to_fetch": HOW_MANY_NEWS_TO_FETCH}))
-    print("News Result:", news_result)
-    if not os.path.exists("news"): os.makedirs("news")
-    output_file = "news/news_result.txt"
-    with open(output_file, "w", encoding="utf-8") as file:
-        file.write(news_result)
+    #news_crew = Crew(agents=[news_parser, reporting_analyst], tasks=[fetch_news_task, reporting_task])
+    #news_result = str(news_crew.kickoff(inputs={"rss_url": RSS_FEED_URL, "how_many_news_to_fetch": HOW_MANY_NEWS_TO_FETCH}))
+    #print("News Result:", news_result)
+    #if not os.path.exists("news"): os.makedirs("news")
+    #output_file = "news/news_result.txt"
+    #with open(output_file, "w", encoding="utf-8") as file:
+    #    file.write(news_result)
 
     # Restore textual news without calling again the news_crew
-    # with open("news/news_result.txt", "r", encoding="utf-8") as file:
-    #    news_result = file.read()
+    with open("news/news_result.txt", "r", encoding="utf-8") as file:
+        news_result = file.read()
     
     # Second crew for Podcast generation
     podcast_crew = Crew(agents=[podcast_writer, audio_generator], tasks=[script_task, audio_task])
