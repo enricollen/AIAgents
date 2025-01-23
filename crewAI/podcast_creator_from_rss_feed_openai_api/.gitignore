@@ -1,0 +1,5 @@
+.env
+__pycache__/
+openai_tts_pricing.jpg
+openai_tts_pricing2.jpg
+podcasts/*
