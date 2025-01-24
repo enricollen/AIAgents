@@ -90,7 +90,6 @@ script_task = Task(
         "Write a podcast script based on the processed content: {content}. "
         "Ensure the script is structured as a natural dialogue and is in Italian. "
         "If there are multiple topics, produce a smaller script for each. "
-        "Always start the script saying the name of the podcast: 'SaniTrend di Helaglobe'."
     ),
     expected_output="A structured podcast script with a single speaker in Italian.",
     agent=podcast_writer
