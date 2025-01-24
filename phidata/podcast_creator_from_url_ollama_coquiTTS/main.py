@@ -64,9 +64,9 @@ class PodcastManager:
 
 if __name__ == "__main__":
     host_character = "Mia"
-    guests = ["Enrico"]
+    guests = ["Nimbus"]
     personas = {
-        "Enrico": "A digital marketer specializing in social media."
+        "Nimbus": "A digital marketer specializing in social media."
     }
 
     manager = PodcastManager()
