@@ -1,0 +1,5 @@
+phidata
+pydantic
+TTS
+ollama
+crawl4ai
