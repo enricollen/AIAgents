@@ -1,6 +1,10 @@
 # 🎙️ Podcast Creator with Fully Local Setup
 
-This project demonstrates a **fully local podcast creation pipeline** utilizing **Ollama** for language processing and **Coqui TTS** for audio generation. The application automates the entire workflow of transforming news content from a website into a structured podcast with compelling narration. It leverages the modular design of agents and tasks, orchestrated seamlessly by the **CrewAI framework**.
+This project demonstrates a **fully local podcast creation pipeline** utilizing:
+- **Ollama** to run local LLMs.
+- **Coqui TTS** for audio generation.
+
+The application automates the entire workflow of transforming news content from a website into a structured podcast with compelling narration. It leverages the modular design of agents and tasks, orchestrated seamlessly by the **CrewAI framework**.
 
 Additionally, this project highlights how to enable interaction between two distinct crews within CrewAI, making it a versatile example for adapting to other use cases involving multiple collaborating crews.
 
