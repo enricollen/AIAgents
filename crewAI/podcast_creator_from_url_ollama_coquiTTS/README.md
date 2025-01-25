@@ -134,6 +134,7 @@ The **Podcast Creation Crew** takes the processed content and performs:
    ```
 7. Run the main.py:
    ```python
+   cd src/podcast_creator_from_url_ollama_coquiTTS
    python main.py
    ```
 
