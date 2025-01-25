@@ -114,8 +114,8 @@ The **Podcast Creation Crew** takes the processed content and performs:
 2. Make sure Ollama is running on your system
 3. **Clone the repository**:
    ```bash
-   git clone https://github.com/enricollen/AIAgents/tree/main/crewAI/podcast_creator_from_url_ollama_coquiTTS
-   cd podcast_creator_from_url_ollama_coquiTTS
+   git clone https://github.com/enricollen/AIAgents
+   cd crewAI/podcast_creator_from_url_ollama_coquiTTS
    ```
 4. **Create and activate a virtual environment to manage dependencies cleanly**:
    ```bash
@@ -127,7 +127,7 @@ The **Podcast Creation Crew** takes the processed content and performs:
    ```bash
    pip install -r requirements.txt
    ```
-6. Create a .env file in the project root path (see given .env_example) and configure environment variables:
+6. Create a .env file in the project root path (see .env_example for reference) and configure environment variables:
    ```plaintext
    LLM_MODEL=llama3.1:8b
    WEBSITE_URL=https://example.com/news-article
