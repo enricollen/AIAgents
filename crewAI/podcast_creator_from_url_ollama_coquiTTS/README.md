@@ -1,61 +1,14 @@
 # 🎙️ Podcast Creator with Fully Local Setup
 
-This project demonstrates a **podcast creation pipeline** using a fully local setup with **Ollama** as the LLM (Large Language Model) and **Coqui TTS** for audio generation. The application automates the process of converting news content from a website into a structured podcast with engaging narration, leveraging the power of modular agents and tasks managed by the **CrewAI framework**. 
+This project demonstrates a **fully local podcast creation pipeline** utilizing **Ollama** for language processing and **Coqui TTS** for audio generation. The application automates the entire workflow of transforming news content from a website into a structured podcast with compelling narration. It leverages the modular design of agents and tasks, orchestrated seamlessly by the **CrewAI framework**.
 
----
-
-## 🌟 Key Features
-- **Local LLM (Ollama):** For natural language processing tasks such as content extraction, reporting, and podcast script creation.
-- **Coqui TTS:** For high-quality text-to-speech audio generation.
-- **Modular Task Design:** Agents and tasks are grouped into two distinct crews for content processing and podcast creation.
-- **End-to-End Automation:** Users provide a news URL, and the system handles the rest — from web scraping to audio production.
-- **Flexible and Scalable:** Easily extendable for more agents, tools, or additional features.
-
----
-
-## 🛠️ How It Works
-
-### Step 1: Provide a News URL
-The user inputs a news URL. This URL becomes the starting point for scraping and processing content.
-
-### Step 2: Content Processing Crew
-The **Content Processing Crew** handles:
-1. **Scraping:** Extracting and cleaning the main content from the website.
-2. **Reporting:** Generating a detailed report based on the scraped content.
-
-### Step 3: Podcast Creation Crew
-The **Podcast Creation Crew** takes the processed content and performs:
-1. **Script Writing:** Crafting a structured podcast script in Italian.
-2. **Audio Generation:** Converting the script into an audio file (MP3) using Coqui TTS.
-
-### Step 4: Save Results
-- The **scraped content** is saved locally for traceability.
-- The **podcast audio** is saved as an MP3 file in the `podcasts` directory.
-
----
-
-## 📁 Project Structure
-
-```plaintext
-.
-├── src/
-│   ├── podcast_creator_from_url_ollama_coquiTTS/
-│   │   ├── tools/
-│   │   │   └── text_to_speech_tool.py  # Coqui TTS integration for audio generation
-│   │   └── agents/                     # Custom agents for specific tasks
-│   └── ...
-├── output/
-│   ├── scraped_news.txt                # Saved content from the news scraping task
-├── podcasts/
-│   ├── podcast.mp3                     # Generated podcast audio file
-└── README.md                           # Project documentation
-```
+Additionally, this project highlights how to enable interaction between two distinct crews within CrewAI, making it a versatile example for adapting to other use cases involving multiple collaborating crews.
 
 ---
 
 ## 🧩 Components and Interactions
 
-### Content Processing Crew
+### 1. 👥 News Processing Crew
 This crew focuses on extracting and analyzing content from the provided URL.
 
 #### **Agents**
@@ -77,9 +30,8 @@ This crew focuses on extracting and analyzing content from the provided URL.
    - Description: Analyze the scraped content and expand each topic into a detailed section or provide key insights for multiple topics.
    - Expected Output: A detailed report in Italian with approximately six paragraphs.
 
----
 
-### Podcast Creation Crew
+### 2. 👥 Podcast Creation Crew
 This crew converts processed content into a podcast script and generates the final audio file.
 
 #### **Agents**
@@ -89,7 +41,7 @@ This crew converts processed content into a podcast script and generates the fin
 
 - **Audio Producer:** 
   - Role: Generate high-quality MP3 audio from the podcast script.
-  - Tools: Uses Coqui TTS for text-to-speech synthesis.
+  - Tools: Uses a custom defined tool that exploits Coqui TTS for local text-to-speech synthesis.
   - Output: An MP3 file of the podcast narration.
 
 #### **Tasks**
@@ -99,28 +51,84 @@ This crew converts processed content into a podcast script and generates the fin
 
 2. **Audio Generation:**
    - Description: Convert the podcast script into an MP3 audio file.
-   - Expected Output: A high-quality MP3 file (`podcasts/podcast.mp3`).
+   - Expected Output: A high-quality MP3 file (`podcasts/podcast_{timestamp}.mp3`).
 
+---
+## 🛠️ How It Works
+
+### Step 1: Provide a News URL
+The user inputs a news URL. This URL becomes the starting point for scraping and processing content.
+
+### Step 2: News Processing Crew
+The **News Processing Crew** handles:
+1. **Scraping:** Extracting and cleaning the main content from the website.
+2. **Reporting:** Generating a detailed report based on the scraped content.
+
+### Step 3: Podcast Creation Crew
+The **Podcast Creation Crew** takes the processed content and performs:
+1. **Script Writing:** Crafting a structured podcast script in Italian (or whatever language do you prefer).
+2. **Audio Generation:** Converting the script into an audio file (MP3) using Coqui TTS.
+
+### Step 4: Save Results
+- The **scraped content** is saved locally for traceability.
+- The **podcast audio** is saved as an MP3 file in the `podcasts` directory.
+
+---
+
+## 📁 Project Structure
+
+```plaintext
+.
+├── src/
+│   ├── podcast_creator_from_url_ollama_coquiTTS/
+│   │   ├── tools/
+│   │   │   └── text_to_speech_tool.py  # Coqui TTS integration for audio generation
+│   │   └── main.py                     # main script
+│   └── ...
+├── output/
+│   ├── scraped_news.txt                # Saved content from the news scraping task
+├── podcasts/
+│   ├── podcast.mp3                     # Generated podcast audio file
+├── voices/                             # Contains the reference wav files for voice cloning
+└── README.md                           # Project documentation
+```
 ---
 ## 🚀 How to Run
 
-1. Make sure Ollama is running on your system
-2. FFmpeg: Install and ensure FFmpeg is added to your system's PATH.
+1. **Install FFmpeg**:
+
+   - Download FFmpeg from the [official FFmpeg website](https://ffmpeg.org/download.html) or use a package manager suitable for your operating system.
+   - Add FFmpeg to your system's PATH:
+     - **Windows**: Add the `bin` directory of FFmpeg to your system's environment variables under the `Path`.
+     - **Linux/MacOS**: Install FFmpeg using a package manager (e.g., `apt install ffmpeg` on Ubuntu or `brew install ffmpeg` on macOS) and ensure it's accessible in the terminal.
+   - Verify installation:
+     ```bash
+     ffmpeg -version
+     ```
+     If the command outputs the version details, FFmpeg is correctly installed and configured.
+
+2. Make sure Ollama is running on your system
 3. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repo/podcast-creator
-   cd podcast-creator
+   git clone https://github.com/enricollen/AIAgents/tree/main/crewAI/podcast_creator_from_url_ollama_coquiTTS
+   cd podcast_creator_from_url_ollama_coquiTTS
    ```
-4. **Python Environment:** Install required dependencies:
+4. **Create and activate a virtual environment to manage dependencies cleanly**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Linux/MacOS
+   venv\Scripts\activate      # On Windows
+   ```
+5. **Install required dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-5. Create a .env file and configure environment variables:
+6. Create a .env file in the project root path (see given .env_example) and configure environment variables:
    ```plaintext
    LLM_MODEL=llama3.1:8b
-    WEBSITE_URL=https://example.com/news-article
-    ```
-6. Run the main.py:
+   WEBSITE_URL=https://example.com/news-article
+   ```
+7. Run the main.py:
    ```python
    python main.py
    ```
