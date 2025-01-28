@@ -1,54 +1,74 @@
-# NewsReporting Crew
+# 📰 News Processing and Reporting Pipeline
 
-Welcome to the NewsReporting Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+This project serves as the Hello World of CrewAI, emphasizing the use of a Custom Tool to showcase a simple yet effective news processing pipeline. It highlights how to parse news articles **from an RSS feed**, process the content, and generate a structured report. 
 
-## Installation
+By leveraging the CrewAI framework, it demonstrates how to seamlessly integrate and orchestrate modular agents and tasks with custom tools, making it an ideal starting point for understanding and building more advanced CrewAI projects.
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+---
 
-First, if you haven't already, install uv:
+## 🧩 Components
 
-```bash
-pip install uv
+### 1. **Agents**
+- **News Parser Agent:**
+  - Role: Extract and parse news articles from the RSS feed.
+  - Tools: Utilizes the `NewsParserTool` custom tool for news parsing.
+  - Config File: `config/tasks.yaml`
+  
+- **Reporting Analyst Agent:**
+  - Role: Generate a detailed report based on the parsed news content.
+  - Skills: Structured analysis and writing capabilities.
+  - Config File: `config/tasks.yaml`
+
+### 2. **Tasks**
+- **Fetch News Task:**
+  - Description: Parse the RSS feed and clean the extracted news articles.
+  - Config File: `config/tasks.yaml`
+  
+- **Reporting Task:**
+  - Description: Analyze the parsed news and create a structured report.
+  - Config File: `config/tasks.yaml`
+  - Output File: `src/news_reporting/outputs/report.md`
+
+---
+
+## 📂 Project Structure
+
+```plaintext
+.
+├── src/
+│   └── news_reporting/
+|      ├── config/
+│      |   └── agents.yaml              # Agent configurations
+│      |   └── tasks.yaml               # Task configurations
+│      ├── tools/
+│      │   └── news_parser_tool.py      # Tool for parsing RSS feed
+│      ├── outputs/
+│      │   └── report.md                # Generated report
+│      ├── crew.py                      # Crew definition
+│      └── main.py                      # Main script to run the crew
+│                        
+├── .env                              # Environment variables
+├── requirements.txt                  # Python dependencies
+├── README.md                         # Project documentation
 ```
+---
+## 🚀 How to Run
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/enricollen/AIAgents
+   cd crewAI/news_reporting
+   ```
+2. Create a .env file in the project root path (see .env_example for reference) and configure environment variables:
+   ```plaintext
+   OPENAI_API_KEY=YOUR_KEY_HERE
+   MODEL=gpt-3.5-turbo
+   RSS_FEED_URL=YOUR_RSS_URL_HERE 
+   HOW_MANY_NEWS_TO_FETCH=1
+   HOW_MANY_PARAGRAPHS_TO_FETCH=13
+   ```
+3. Run by using the CrewAI command:
+   ```bash
+   cd src/news_reporting
+   crewai run
+   ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-### Customizing
-
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/news_reporting/config/agents.yaml` to define your agents
-- Modify `src/news_reporting/config/tasks.yaml` to define your tasks
-- Modify `src/news_reporting/crew.py` to add your own logic, tools and specific args
-- Modify `src/news_reporting/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
-```bash
-$ crewai run
-```
-
-This command initializes the news_reporting Crew, assembling the agents and assigning them tasks as defined in your configuration.
-
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
-
-## Understanding Your Crew
-
-The news_reporting Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
-## Support
-
-For support, questions, or feedback regarding the NewsReporting Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
