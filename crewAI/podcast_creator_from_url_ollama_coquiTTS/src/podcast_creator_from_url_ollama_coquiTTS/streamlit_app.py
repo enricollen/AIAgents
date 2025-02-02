@@ -10,10 +10,13 @@ load_dotenv()
 st.set_page_config(page_title="Podcast Creator", layout="centered")
 st.title("🎙️ Podcast Creator")
 
-# user inputs: LLM model and News Website URL
+# User inputs: LLM model, News Website URL, and Language selection
 llm_model = st.text_input("Enter LLM Model (e.g., ollama/llama3.1:8b):", placeholder="ollama/llama3.1:8b")
 website_url = st.text_input("Enter Website URL to scrape content:")
-website_url = str(website_url)
+
+# Language selection
+language_options = ["Italian", "English", "Spanish", "French", "German"]
+selected_language = st.selectbox("Select Language:", language_options)
 
 # button to start the process
 if st.button("Generate Podcast"):
@@ -28,10 +31,10 @@ if st.button("Generate Podcast"):
         # Define agents
         website_scraper = Agent(
             role="Website Content Scraper",
-            goal="Extract the main content of the specified website URL: {website_url}.",
+            goal=f"Extract the main content of the specified website URL: {{website_url}}, ensuring the content is in {selected_language}.",
             backstory=(
                 "You're an expert in scraping and extracting meaningful information from web pages. "
-                "You ensure the scraped content is clean, relevant, and easy to process for further tasks."
+                f"You ensure the scraped content is clean, relevant, and easy to process, always ensuring it is in {selected_language}."
             ),
             tools=[website_scraper_tool],
             llm=llm
@@ -39,11 +42,10 @@ if st.button("Generate Podcast"):
 
         reporting_analyst = Agent(
             role="Senior Reporting Analyst",
-            goal="Create detailed reports based on received content, analyzing data and findings.",
+            goal=f"Create detailed reports based on received content, analyzing data and findings, ensuring all content is in {selected_language}.",
             backstory=(
                 "You're a meticulous analyst with a keen eye for detail, especially when it comes to statistics and data. "
-                "You're known for your ability to turn complex data into clear and concise reports, making it easy "
-                "for others to understand and act on the information you provide. "
+                f"You are skilled in transforming complex information into structured reports, always in {selected_language}. "
                 "If there is only one major topic, produce a detailed and in-depth report focusing on all relevant aspects. "
                 "If there are multiple topics, generate a report that provides key insights and essential highlights for each one in numbered sections."
             ),
@@ -52,19 +54,19 @@ if st.button("Generate Podcast"):
 
         podcast_writer = Agent(
             role="Podcast Script Writer",
-            goal="Convert the processed content into a structured podcast conversation.",
+            goal=f"Convert the processed content into a structured podcast conversation in {selected_language}.",
             backstory=(
-                "You're a skilled content creator with experience in writing engaging and natural podcast dialogues."
+                f"You're a skilled content creator with experience in writing engaging and natural podcast dialogues in {selected_language}."
             ),
             llm=llm
         )
 
         audio_generator = Agent(
             role="Audio Producer",
-            goal="Generate an mp3 audio file from the podcast script.",
+            goal=f"Generate an mp3 audio file from the podcast script in {selected_language}.",
             backstory=(
                 "You're an expert in text-to-speech synthesis and audio production. "
-                "You ensure that the podcast has high-quality narration."
+                f"You ensure that the podcast narration is of high quality and is produced in {selected_language}."
             ),
             tools=[TextToSpeechTool()],
             output_file="podcasts/podcast.mp3",
@@ -74,11 +76,10 @@ if st.button("Generate Podcast"):
         # Define tasks
         fetch_content_task = Task(
             description=(
-                "Scrape and clean content from the specified website URL: {website_url}. "
-                "Extract all relevant details and maintain the context. "
-                "The language MUST be Italian."
+                f"Scrape and clean content from the specified website URL: {{website_url}}. "
+                f"Extract all relevant details and maintain the context. The language MUST be {selected_language}."
             ),
-            expected_output="A full report with the main topics, in Italian.",
+            expected_output=f"A full report with the main topics, in {selected_language}.",
             agent=website_scraper
         )
 
@@ -88,25 +89,24 @@ if st.button("Generate Podcast"):
                 "If there is only one major topic, produce a detailed and in-depth report focusing on all relevant aspects. "
                 "If there are multiple different topics, generate a report that provides key insights and essential highlights for each one."
             ),
-            expected_output="A detailed report in Italian with around 6 paragraphs.",
+            expected_output=f"A detailed report in {selected_language} with around 6 paragraphs.",
             agent=reporting_analyst
         )
 
         script_task = Task(
             description=(
-                "Write a podcast script based on the processed content: {content}. "
-                "Ensure the script is structured as a natural dialogue and is in Italian. "
-                "If there are multiple topics, produce a smaller script for each. "
-                "Always start the script saying the name of the podcast: 'SaniTrend di Helaglobe'."
+                f"Write a podcast script based on the processed content: {{content}}. "
+                f"Ensure the script is structured as a natural dialogue and is in {selected_language}. "
+                "If there are multiple topics, produce a smaller script for each."
             ),
-            expected_output="A structured podcast script with a single speaker in Italian.",
+            expected_output=f"A structured podcast script with a single speaker in {selected_language}.",
             agent=podcast_writer
         )
 
         audio_task = Task(
             description=(
-                "Generate an mp3 audio file from the podcast script using text-to-speech synthesis. "
-                "Assume only one speaker. Produce an audio file."
+                f"Generate an mp3 audio file from the podcast script using text-to-speech synthesis. "
+                f"Assume only one speaker. Produce an audio file in {selected_language}."
             ),
             expected_output="podcasts/podcast.mp3",
             agent=audio_generator
