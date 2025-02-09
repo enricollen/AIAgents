@@ -31,6 +31,7 @@ class PodcastManager:
             print("Failed to rewrite news content. Exiting...")
             return
         # Save to news.txt
+        os.makedirs("outputs", exist_ok=True)
         content_file = "outputs/news.txt"
         print("Saving rewritten news content to file...")
         with open(content_file, 'w', encoding='utf-8') as f:
