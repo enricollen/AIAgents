@@ -61,18 +61,19 @@ The project comprises individual **agents**, each responsible for a specific tas
 
 ```plaintext
 .
+├── agents/                      # Folder containing agent scripts
+│   ├── news_scraper.py          # Agent for scraping news
+│   ├── news_rewriter.py         # Agent for rewriting news
+│   ├── podcast_writer.py        # Agent for generating podcast dialogue scripts
+│   ├── podcast_audio_generator.py # Agent for generating podcast audio
 ├── outputs/                     # Directory for storing intermediate results
 │   ├── news.txt                 # Rewritten news content
 ├── podcasts/                    # Directory for storing generated podcasts
 │   └── podcast.mp3              # Final podcast MP3 file
 ├── voices/                      # Contains reference wav files for TTS
 ├── main.py                      # Main script to execute the pipeline
-├── news_scraper.py              # Agent for scraping news
-├── news_rewriter.py             # Agent for rewriting news
-├── podcast_writer.py            # Agent for generating podcast dialogue scripts
-├── podcast_audio_generator.py   # Agent for generating podcast audio
 ├── .env_example                 # Example environment configuration file
-└── requirements.txt             # Python dependencies
+├── requirements.txt             # Python dependencies
 ```
 ---
 ## 🚀 How to Run
