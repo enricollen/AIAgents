@@ -20,6 +20,7 @@ class PodcastAudioGenerator:
             instructions=[
                 "You are an audio podcast creator.",
                 "You have a custom tool to generate audio files from the podcast dialogues.",
+                "Use the tool 'generate_audio' to generate audio files from the podcast dialogues.",
             ],
             tools=[self.generate_audio],
             show_tool_calls=True,

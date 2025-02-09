@@ -1,8 +1,8 @@
 import os
-from news_scraper import NewsScraper
-from news_rewriter import NewsRewriter
-from podcast_writer import PodcastWriter
-from podcast_audio_generator import PodcastAudioGenerator
+from agents.news_scraper import NewsScraper
+from agents.news_rewriter import NewsRewriter
+from agents.podcast_writer import PodcastWriter
+from agents.podcast_audio_generator import PodcastAudioGenerator
 from dotenv import load_dotenv
 
 load_dotenv()
