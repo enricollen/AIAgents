@@ -1,0 +1,24 @@
+[project]
+name = "quiz_maker"
+version = "0.1.0"
+description = "quiz_maker using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.100.1,<1.0.0",
+    "langtrace_python_sdk"
+]
+
+[project.scripts]
+quiz_maker = "quiz_maker.main:run"
+run_crew = "quiz_maker.main:run"
+train = "quiz_maker.main:train"
+replay = "quiz_maker.main:replay"
+test = "quiz_maker.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"

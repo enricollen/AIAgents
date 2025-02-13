@@ -1,0 +1,37 @@
+analyze_webpage:
+  description: >
+    Extract the content of the webpage content from the URL {url}.
+    Extract all the text content from the webpage.
+    The language MUST be Italian.
+  expected_output: >
+    The webpage content.
+  agent: web_scraper
+
+clean_web_content:
+  description: >
+    Process the raw webpage content and remove all non-content elements such as button names, 
+    HTML tags, navigation menus, and unrelated text.
+    Keep only the meaningful text related to the webpage content.
+  expected_output: >
+    The cleaned webpage content, retaining only the meaningful text.
+  agent: content_cleaner
+
+organize_content:
+  description: >
+    Identify all distinct topics within the cleaned content and format the document accordingly, assigning an incremental number to each topic 
+    (e.g., #1 Topic1, #2 Topic2, etc.).
+    Preserve the original text exactly as it is, without rewriting, summarizing, or omitting any part of the content.
+    The full length of the original cleaned text MUST be maintained.
+    Do not add an introduction, conclusion, or personal comments.
+    The output MUST be in txt format.
+  expected_output: >
+    A well-structured txt document that maintains the complete original text with clearly numbered topics.
+  agent: content_organizer
+  output_file: output/original_content.txt
+
+divide_topics:
+  description: >
+    Analyze the provided text document, identify distinct topics, and generate separate files for each theme.
+  expected_output: >
+    A set of structured text files, each containing content focused on a single topic extracted from the original document.
+  agent: topics_divider
