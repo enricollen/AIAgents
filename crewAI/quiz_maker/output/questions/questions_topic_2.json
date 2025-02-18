@@ -1,0 +1,26 @@
+{
+  "topic": "2",
+  "content": "LADA  \nLa LADA, o diabete autoimmune del adulto, condivide alcune caratteristiche con il diabete di tipo 1, ma si manifesta in età più avanzata e ha una progressione più lenta.",
+  "questions": [
+    {
+      "question": "Qual è una caratteristica distintiva della LADA rispetto al diabete di tipo 1?",
+      "options": {
+        "A": "Si manifesta in età più avanzata",
+        "B": "Richiede insulina fin dall'inizio",
+        "C": "È causata da mutazioni genetiche",
+        "D": "Non ha sintomi evidenti"
+      },
+      "correct_answer": "A"
+    },
+    {
+      "question": "Qual è il tasso di progressione della LADA rispetto al diabete di tipo 1?",
+      "options": {
+        "A": "Più veloce",
+        "B": "Più lento",
+        "C": "Identico",
+        "D": "Variante"
+      },
+      "correct_answer": "B"
+    }
+  ]
+}

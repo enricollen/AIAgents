@@ -1,0 +1,26 @@
+{
+  "topic": "1",
+  "content": "Diabete autoimmune tipo 1  \nIl diabete autoimmune tipo 1, LADA, MODY e gestazionale sono condizioni diverse ma correlate, che influenzano il metabolismo del glucosio e richiedono una gestione adeguata per prevenire complicazioni a lungo termine. Il diabete di tipo 1, in particolare, è una malattia autoimmune in cui il sistema immunitario attacca le cellule beta del pancreas, responsabili della produzione di insulina.",
+  "questions": [
+    {
+      "question": "Qual è la causa del diabete autoimmune di tipo 1?",
+      "options": {
+        "A": "Il sistema immunitario attacca le cellule beta del pancreas",
+        "B": "Una mutazione genetica",
+        "C": "L'insulina viene prodotta in eccesso",
+        "D": "Non è ben compresa"
+      },
+      "correct_answer": "A"
+    },
+    {
+      "question": "Quale condizione è associata a un aumento del rischio di sviluppare diabete di tipo 2 in seguito?",
+      "options": {
+        "A": "Diabete di tipo 1",
+        "B": "MODY",
+        "C": "Diabete gestazionale",
+        "D": "LADA"
+      },
+      "correct_answer": "C"
+    }
+  ]
+}

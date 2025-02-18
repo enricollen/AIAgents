@@ -1,0 +1,26 @@
+{
+  "topic": "3",
+  "content": "MODY  \nIl MODY, varianti del diabete mellito di tipo 2, è causato da mutazioni genetiche e non richiede insulina nella fase iniziale.",
+  "questions": [
+    {
+      "question": "Cosa causa il MODY?",
+      "options": {
+        "A": "Una malattia autoimmune",
+        "B": "Mutazioni genetiche",
+        "C": "Un'infezione virale",
+        "D": "Un'alimentazione scorretta"
+      },
+      "correct_answer": "B"
+    },
+    {
+      "question": "Quale affermazione è vera riguardo alla necessità di insulina nel MODY?",
+      "options": {
+        "A": "Richiede insulina fin dall'inizio",
+        "B": "Non richiede insulina nella fase iniziale",
+        "C": "Richiede insulina in tutti i casi",
+        "D": "Non è stato studiato a sufficienza"
+      },
+      "correct_answer": "B"
+    }
+  ]
+}
