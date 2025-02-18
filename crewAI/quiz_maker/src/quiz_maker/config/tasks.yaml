@@ -35,3 +35,28 @@ divide_topics:
   expected_output: >
     A set of structured text files, each containing content focused on a single topic extracted from the original document.
   agent: topics_divider
+
+create_quiz_questions:
+  description: >
+    Process each topic file in output/divided_topics:
+    1. Files are named as "topic_1.txt", "topic_2.txt", "topic_3.txt"
+    2. For each file:
+       - Read the content and create 2 multiple-choice questions
+       - Use the Text to Questions Converter tool with the EXACT filename (e.g., "topic_1.txt")
+       - DO NOT modify the filename format
+    3. Create 2 multiple-choice questions with 4 options each
+    4. Questions will be automatically saved in JSON format
+    
+    Requirements for questions:
+    - Questions should test understanding of the content
+    - Each question must have exactly 4 options
+    - Only one option should be correct
+    - Questions should be clear and unambiguous
+    - Avoid overly obvious or trivial questions
+    - The questions MUST be created based ONLY on the content of the topic file
+
+  expected_output: >
+    A series of JSON files in the output/questions directory, each containing:
+    - Topic number
+    - Original content in a question format
+    - 2 multiple-choice questions with 4 options each

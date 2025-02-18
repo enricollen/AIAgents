@@ -9,6 +9,7 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import ScrapeWebsiteTool
 from .tools.divide_topics_into_txt import TopicsDivider
+from .tools.txt_to_questions import TxtToQuestionsTool
 
 @CrewBase
 class ThemeExtractorCrew:
@@ -46,13 +47,21 @@ class ThemeExtractorCrew:
 			tools=[TopicsDivider()],
 			verbose=True
 		)
+  
+	@agent
+	def quiz_maker(self) -> Agent:
+		return Agent(
+			config=self.agents_config['quiz_maker'],
+			tools=[TxtToQuestionsTool()],
+			verbose=True
+		)
 
-	def get_manager(self) -> Agent:
+	"""def get_manager(self) -> Agent:
 		return Agent(
 			config=self.agents_config['manager'],
 			allow_delegation=True,
 			verbose=True
-		)
+		)"""
 
 	@task
 	def analyze_webpage(self) -> Task:
@@ -85,11 +94,25 @@ class ThemeExtractorCrew:
 		agent=self.topics_divider()
 	)
 
+	@task
+	def create_quiz_questions(self) -> Task:
+		return Task(
+			config=self.tasks_config['create_quiz_questions'],
+			agent=self.quiz_maker(),
+			depends_on=[self.divide_topics()]
+		)
+
 	@crew
 	def crew(self) -> Crew:
 		"""Creates the ThemeExtractorCrew crew"""
 		return Crew(
-			agents=[self.web_scraper(), self.content_cleaner(), self.content_organizer(), self.topics_divider()],
+			agents=[
+				self.web_scraper(),
+				self.content_cleaner(),
+				self.content_organizer(),
+				self.topics_divider(),
+				self.quiz_maker()
+			],
 			tasks=self.tasks,
 			#manager_agent=self.get_manager(),
 			process=Process.sequential,
