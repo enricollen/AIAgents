@@ -1,0 +1,224 @@
+{
+  "questions": [
+    {
+      "theme": "Diabete mellito di tipo 2",
+      "question_text": "Qual è la caratteristica principale del diabete mellito di tipo 2?",
+      "answers": [
+        {
+          "text": "Elevata presenza di zuccheri nel sangue (iperglicemia)",
+          "score": 5
+        },
+        {
+          "text": "Diminuzione della produzione di insulina",
+          "score": 2
+        },
+        {
+          "text": "Eccesso di insulina nel sangue",
+          "score": 0
+        },
+        {
+          "text": "Causa una riduzione della massa muscolare",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Sintomi",
+      "question_text": "Quale dei seguenti sintomi non è tipico del diabete mellito di tipo 2?",
+      "answers": [
+        {
+          "text": "Aumento della produzione di urina",
+          "score": 5
+        },
+        {
+          "text": "Stanchezza",
+          "score": 2
+        },
+        {
+          "text": "Dolori addominali",
+          "score": 0
+        },
+        {
+          "text": "Eccessivo aumento della vista",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Fattori di rischio",
+      "question_text": "Quale fattore di rischio è associato al diabete di tipo 2?",
+      "answers": [
+        {
+          "text": "Obesità",
+          "score": 5
+        },
+        {
+          "text": "Diminuzione della pressione sanguigna",
+          "score": 2
+        },
+        {
+          "text": "Cattivo umore",
+          "score": 0
+        },
+        {
+          "text": "Aumento della massa ossea",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Diagnosi",
+      "question_text": "Come viene diagnosticato il diabete mellito di tipo 2?",
+      "answers": [
+        {
+          "text": "Attraverso esami del sangue",
+          "score": 5
+        },
+        {
+          "text": "Con un'ecografia addominale",
+          "score": 2
+        },
+        {
+          "text": "Con un test di pressione sanguigna",
+          "score": 0
+        },
+        {
+          "text": "Analizzando le urine per la presenza di calorie",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Trattamenti",
+      "question_text": "Qual è uno degli approcci per gestire il diabete mellito di tipo 2?",
+      "answers": [
+        {
+          "text": "Modifiche dello stile di vita e terapie farmacologiche",
+          "score": 5
+        },
+        {
+          "text": "Assunzione di sola insulina",
+          "score": 2
+        },
+        {
+          "text": "Esclusione totale di carboidrati dalla dieta",
+          "score": 0
+        },
+        {
+          "text": "Unico rimedio è l'operazione chirurgica",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Complicazioni",
+      "question_text": "Quale delle seguenti complicazioni è associata al diabete mellito di tipo 2?",
+      "answers": [
+        {
+          "text": "Problemi cardiovascolari",
+          "score": 5
+        },
+        {
+          "text": "Infezioni da virus",
+          "score": 2
+        },
+        {
+          "text": "Aumento della vista",
+          "score": 0
+        },
+        {
+          "text": "Diminuzione della temperatura corporea",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Origini del diabete",
+      "question_text": "A quale età è più comune sviluppare il diabete mellito di tipo 2?",
+      "answers": [
+        {
+          "text": "Di solito in età adulta",
+          "score": 5
+        },
+        {
+          "text": "Principalmente durante l'infanzia",
+          "score": 2
+        },
+        {
+          "text": "Tipicamente negli adolescenti",
+          "score": 0
+        },
+        {
+          "text": "Solo nella terza età",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Strutture sanitarie",
+      "question_text": "Quali reparti del Policlinico di Sant'Orsola sono coinvolti nella cura del diabete di tipo 2?",
+      "answers": [
+        {
+          "text": "Endocrinologia e Chirurgia del tratto alimentare",
+          "score": 5
+        },
+        {
+          "text": "Pediatria e Dermatologia",
+          "score": 2
+        },
+        {
+          "text": "Chirurgia estetica e Ortopedia",
+          "score": 0
+        },
+        {
+          "text": "Ginecologia e Urologia",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Prevenzione",
+      "question_text": "Quale comportamento può aiutare a prevenire il diabete di tipo 2?",
+      "answers": [
+        {
+          "text": "Attività fisica regolare",
+          "score": 5
+        },
+        {
+          "text": "Mangiare solo dolci",
+          "score": 2
+        },
+        {
+          "text": "Avere una vita sedentaria",
+          "score": 0
+        },
+        {
+          "text": "Fumare regolarmente",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Metabolismo",
+      "question_text": "Cosa sono i farmaci secretagoghi utilizzati nel trattamento del diabete di tipo 2?",
+      "answers": [
+        {
+          "text": "Farmaci che migliorano il metabolismo degli zuccheri",
+          "score": 5
+        },
+        {
+          "text": "Farmaci che distruggono le cellule beta del pancreas",
+          "score": 2
+        },
+        {
+          "text": "Farmaci che aumentano l'assorbimento di grassi",
+          "score": 0
+        },
+        {
+          "text": "Farmaci che causano aumento di peso",
+          "score": -2
+        }
+      ]
+    }
+  ]
+}

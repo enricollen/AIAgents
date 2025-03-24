@@ -1,0 +1,224 @@
+{
+  "questions": [
+    {
+      "theme": "Tipologie di diabete",
+      "question_text": "Quali sono le due principali tipologie di diabete?",
+      "answers": [
+        {
+          "text": "Diabete di tipo 1 e diabete di tipo 2",
+          "score": 5
+        },
+        {
+          "text": "Diabete gestazionale e diabete di tipo 2",
+          "score": 2
+        },
+        {
+          "text": "Diabete insulino-resistente e diabete di tipo 1",
+          "score": 0
+        },
+        {
+          "text": "Diabete autoimmune e diabete congenito",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Cause del diabete",
+      "question_text": "Quale tra le seguenti è una causa comune del diabete di tipo 2?",
+      "answers": [
+        {
+          "text": "Vita sedentaria e alimentazione poco equilibrata",
+          "score": 5
+        },
+        {
+          "text": "Eccesso di insulina nel sangue",
+          "score": 2
+        },
+        {
+          "text": "Sforzi fisici intensi",
+          "score": 0
+        },
+        {
+          "text": "Infiammazioni acute",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Sintomi del diabete",
+      "question_text": "Quale sintomo è tipicamente associato ai casi acuti di diabete?",
+      "answers": [
+        {
+          "text": "Sete eccessiva",
+          "score": 5
+        },
+        {
+          "text": "Nausea persistente",
+          "score": 2
+        },
+        {
+          "text": "Mal di testa",
+          "score": 0
+        },
+        {
+          "text": "Dolore al petto",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Complicanze del diabete",
+      "question_text": "Quale delle seguenti complicanze è correlata al diabete?",
+      "answers": [
+        {
+          "text": "Retinopatia",
+          "score": 5
+        },
+        {
+          "text": "Rinite allergica",
+          "score": 2
+        },
+        {
+          "text": "Fratture ossee frequenti",
+          "score": 0
+        },
+        {
+          "text": "Mancanza di appetito",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Diagnosi del diabete",
+      "question_text": "Qual è il valore di glicemia a digiuno che conferma la diagnosi di diabete?",
+      "answers": [
+        {
+          "text": "Superiore a 126 mg/dl",
+          "score": 5
+        },
+        {
+          "text": "Inferiore a 100 mg/dl",
+          "score": 2
+        },
+        {
+          "text": "Tra 100 e 126 mg/dl",
+          "score": 0
+        },
+        {
+          "text": "Esclusivamente sotto controllo ospedaliero",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Trattamento del diabete",
+      "question_text": "Qual è il trattamento principale per il diabete di tipo 1?",
+      "answers": [
+        {
+          "text": "Terapia insulinica",
+          "score": 5
+        },
+        {
+          "text": "Dieta ipocalorica",
+          "score": 2
+        },
+        {
+          "text": "Attività fisica moderata",
+          "score": 0
+        },
+        {
+          "text": "Integratori vitaminici",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Gestione del diabete di tipo 2",
+      "question_text": "Quale percentuale di pazienti con diabete di tipo 2 riesce a gestire la patologia senza terapia?",
+      "answers": [
+        {
+          "text": "Il 10%",
+          "score": 5
+        },
+        {
+          "text": "Il 50%",
+          "score": 2
+        },
+        {
+          "text": "Il 30%",
+          "score": 0
+        },
+        {
+          "text": "Il 75%",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Prevenzione del diabete",
+      "question_text": "Quale metodo è efficace nella prevenzione del diabete di tipo 2?",
+      "answers": [
+        {
+          "text": "Attività fisica regolare e dieta sana",
+          "score": 5
+        },
+        {
+          "text": "Evitare completamente i carboidrati",
+          "score": 2
+        },
+        {
+          "text": "Uso di integratori di zucchero",
+          "score": 0
+        },
+        {
+          "text": "Mangiare solo zone fruttate",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Screening del diabete",
+      "question_text": "A chi è consigliato effettuare screening per il diabete?",
+      "answers": [
+        {
+          "text": "A tutta la popolazione, e con attenzione alle persone a rischio",
+          "score": 5
+        },
+        {
+          "text": "Solo a persone con sintomi evidenti",
+          "score": 2
+        },
+        {
+          "text": "Solo ai soggetti di età superiore ai 50 anni",
+          "score": 0
+        },
+        {
+          "text": "Solaente a chi ha un familiare con diabete",
+          "score": -2
+        }
+      ]
+    },
+    {
+      "theme": "Iperglicemia",
+      "question_text": "Cosa si intende per iperglicemia nel diabete?",
+      "answers": [
+        {
+          "text": "Eccesso di glucosio nel sangue",
+          "score": 5
+        },
+        {
+          "text": "Diminuzione della glicemia a digiuno",
+          "score": 2
+        },
+        {
+          "text": "Fluttuazioni normali della glicemia",
+          "score": 0
+        },
+        {
+          "text": "Patologia autonoma del cuore",
+          "score": -2
+        }
+      ]
+    }
+  ]
+}
