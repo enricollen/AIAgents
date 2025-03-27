@@ -28,7 +28,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-# directory di base 
+# base directory 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RAW_TEXT_DIR = os.path.join(BASE_DIR, "raw_pdf_text")
 SUMMARY_TEXT_DIR = os.path.join(BASE_DIR, "summarized_pdf_text")
@@ -37,23 +37,23 @@ JSON_OUTPUT_DIR = os.path.join(BASE_DIR, "json_question_answers")
 for directory in [RAW_TEXT_DIR, SUMMARY_TEXT_DIR, JSON_OUTPUT_DIR]:
     os.makedirs(directory, exist_ok=True)
 
-# modelli pydantic per l'output strutturato
+# pydantic models for structured output
 class Answer(BaseModel):
-    text: str = Field(..., description="il testo dell'opzione di risposta")
-    score: int = Field(..., description="il punteggio per questa risposta (5=corretta, 2=parzialmente corretta, 0=sbagliata, -2=molto sbagliata)")
+    text: str = Field(..., description="the text of the answer option")
+    score: int = Field(..., description="the score for this answer (5=correct, 2=partially correct, 0=wrong, -2=very wrong)")
 
 class Question(BaseModel):
-    theme: str = Field(..., description="il tema a cui appartiene questa domanda")
-    question_text: str = Field(..., description="il testo della domanda")
+    theme: str = Field(..., description="the theme this question belongs to")
+    question_text: str = Field(..., description="the question text")
     answers: List[Answer] = Field(
         ..., 
-        description="lista di 4 possibili risposte",
+        description="list of 4 possible answers",
     )
 
 class Quiz(BaseModel):
     questions: List[Question] = Field(
         ..., 
-        description="lista delle domande del quiz"
+        description="list of quiz questions"
     )
 
     class Config:
@@ -61,13 +61,13 @@ class Quiz(BaseModel):
             "example": {
                 "questions": [
                     {
-                        "theme": "esempio tema",
-                        "question_text": "esempio domanda?",
+                        "theme": "example theme",
+                        "question_text": "example question?",
                         "answers": [
-                            {"text": "risposta corretta", "score": 5},
-                            {"text": "risposta parzialmente corretta", "score": 2},
-                            {"text": "risposta sbagliata", "score": 0},
-                            {"text": "risposta molto sbagliata", "score": -2}
+                            {"text": "correct answer", "score": 5},
+                            {"text": "partially correct answer", "score": 2},
+                            {"text": "wrong answer", "score": 0},
+                            {"text": "very wrong answer", "score": -2}
                         ]
                     }
                 ]
@@ -75,106 +75,107 @@ class Quiz(BaseModel):
         }
 
 def extract_text_from_pdf(pdf_path: str) -> str:
-    """estrazione del testo dal pdf
+    """extract text from pdf
     Args:
-        pdf_path (str): il percorso del file pdf da cui estrarre il testo
+        pdf_path (str): the path of the pdf file to extract text from
 
     Returns:
-        str: il testo estratto dal pdf
+        str: the text extracted from the pdf
     """
     try:
         loader = PyPDFLoader(pdf_path)
         pages = loader.load()
         return "\n".join([page.page_content for page in pages])
     except Exception as e:
-        logging.error(f"errore nell'estrazione del testo dal pdf: {str(e)}")
+        logging.error(f"error extracting text from pdf: {str(e)}")
         return ""
 
 def save_text_to_file(text: str, file_path: str) -> None:
-    """salvataggio del testo su file
+    """save text to file
     Args:
-        text (str): il testo da salvare
-        file_path (str): il percorso del file dove salvare il testo
+        text (str): the text to save
+        file_path (str): the path of the file where to save the text
     """
     try:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(text)
     except Exception as e:
-        logging.error(f"errore nel salvataggio del testo su file: {str(e)}")
+        logging.error(f"error saving text to file: {str(e)}")
 
 def extract_text_from_url(url: str) -> str:
-    """estrazione del testo dall'url
+    """extract text from url
     Args:
-        url (str): l'url da cui estrarre il testo
+        url (str): the url to extract text from
 
     Returns:
-        str: il testo estratto dall'url
+        str: the text extracted from the url
     """
     try:
         loader = WebBaseLoader(url)
         docs = loader.load()
         
-        # html in testo
+        # html to text
         html2text = Html2TextTransformer()
         docs_transformed = html2text.transform_documents(docs)
         
-        # combino le pagine in un unico testo
+        # combine pages into a single text
         return "\n".join([doc.page_content for doc in docs_transformed])
     except Exception as e:
-        logging.error(f"errore nell'estrazione del testo dall'url {url}: {str(e)}")
+        logging.error(f"error extracting text from url {url}: {str(e)}")
         return ""
 
 def get_filename_from_url(url: str) -> str:
-    """estrazione del nome file dall'url
+    """extract filename from url
     Args:
-        url (str): l'url da cui estrarre il nome file
+        url (str): the url to extract filename from
 
     Returns:
-        str: il nome file estratto dall'url
+        str: the filename extracted from the url
     """
     parsed = urlparse(url)
     filename = os.path.basename(parsed.path) or parsed.netloc
-    # rimuovo l'estensione del file
+    # remove file extension
     filename = os.path.splitext(filename)[0]
     return filename
 
-async def create_quiz_from_text(text: str, model: str, filename: str):
-    """elaborazione di un singolo documento di testo attraverso la pipeline degli agenti
+async def create_quiz_from_text(text: str, model: str, filename: str, language: str):
+    """process a single text document through the agent pipeline
     Args:
-        text (str): il testo da elaborare
-        model (str): il modello openai da utilizzare
-        filename (str): il nome del file da elaborare
+        text (str): the text to process
+        model (str): the openai model to use
+        filename (str): the name of the file to process
+        language (str): the language to generate the quiz in
 
     Returns:
-        tuple: una tupla contenente il quiz e il nome del file
+        tuple: a tuple containing the quiz and the filename
     """
     try:
-        # rimozione dell'estensione .pdf dal nome file
+        # remove .pdf extension from filename
         base_filename = filename.replace('.pdf', '')
-        st.write(f"elaborazione di {filename}...")
+        st.write(f"processing {filename}...")
         
-        # elaborazione con l'agente per il riassunto
+        # processing with summarizer agent
         summarizer = Agent(
             name="text summarizer",
-            instructions="""
+            instructions=f"""
             you are an expert at creating detailed summaries of text.
             create a comprehensive summary that capture all important information.
-            all summaries must be in italian.
+            all summaries must be in {language}.
             maintain the original meaning while making the content more concise.
             """,
             model=model
         )
         summary_result = await Runner.run(summarizer, text)
         
-        # salvo il riassunto
+        # save summary
         summary_path = os.path.join(SUMMARY_TEXT_DIR, f"{base_filename}_summary.txt")
         save_text_to_file(summary_result.final_output, summary_path)
-        st.info(f"riassunto salvato in: {summary_path}")
+        st.info(f"summary saved in: {summary_path}")
         
-        # generazione del quiz
+        # quiz generation
         quiz_generator = Agent(
             name="quiz generator",
-            instructions="""
+            instructions=f"""
             you are an expert at creating educational quizzes.
             create exactly 10 multiple choice questions based on the provided text.
             
@@ -188,7 +189,7 @@ async def create_quiz_from_text(text: str, model: str, filename: str):
                - one wrong and potentially harmful answer (-2 points)
             
             assign these values also according to your knowledge on the argument.
-            all questions and answers must be in italian.
+            all questions and answers must be in {language}.
             do not make silly questions.
             make sure each question has exactly 4 answers.
             """,
@@ -200,174 +201,181 @@ async def create_quiz_from_text(text: str, model: str, filename: str):
         return quiz_result.final_output_as(Quiz), base_filename  
         
     except Exception as e:
-        logging.error(f"errore nell'elaborazione di {filename}: {str(e)}")
+        logging.error(f"error processing {filename}: {str(e)}")
         logging.error(traceback.format_exc())
-        st.error(f"errore nell'elaborazione di {filename}: {str(e)}")
+        st.error(f"error processing {filename}: {str(e)}")
         return None, None
 
 def main():
-    st.title("Generatore di quiz")
+    st.title("Quiz Generator")
     
     st.write("""
-    Istruzioni:
-    1. Caricare files PDF o inserire una lista di URL dai quali si intende generare i quiz
-    2. I file vengono analizzati e riassunti
-    3. Vengono generati i quiz in formato JSON
+    Instructions:
+    1. Upload PDF files or enter a list of URLs to generate quizzes from
+    2. Files are analyzed and summarized
+    3. Quizzes are generated in JSON format
     """)
     
     st.write("---")
     
-    # creazione delle schede per input pdf e url
-    tab1, tab2 = st.tabs(["file pdf", "url"])
+    # create tabs for pdf and url input
+    tab1, tab2 = st.tabs(["PDF files", "URLs"])
     
     with tab1:
         uploaded_files = st.file_uploader(
-            "carica file pdf", 
+            "upload pdf files", 
             type="pdf", 
             accept_multiple_files=True,
-            help="puoi caricare più file pdf. verranno elaborati uno alla volta."
+            help="you can upload multiple pdf files. they will be processed one at a time."
         )
     
     with tab2:
         urls = st.text_area(
-            "inserisci gli url (uno per riga)",
-            help="inserisci più url, uno per riga. verranno elaborati uno alla volta."
+            "enter urls (one per line)",
+            help="enter multiple urls, one per line. they will be processed one at a time."
         )
         urls_list = [url.strip() for url in urls.split('\n') if url.strip()]
         
     st.write("---")
     
-    # selezione del modello
+    # model selection
     model = st.selectbox(
-        "Seleziona il modello:",
+        "Select model:",
         ["gpt-3.5-turbo", "gpt-4o-mini", "gpt-4o"],
-        index=1  # predefinito gpt-4o-mini
+        index=1  # default gpt-4o-mini
+    )
+    
+    # language selection
+    language = st.selectbox(
+        "Select quiz language:",
+        ["English", "Italian", "Spanish", "French", "German", "Portuguese", "Russian", "Chinese", "Japanese", "Korean"],
+        index=0  # default English
     )
     
     st.write("---")
     
-    # verifica della chiave api
+    # verify api key
     if not os.getenv("OPENAI_API_KEY"):
-        st.error("setta la chiave OPENAI_API_KEY")
+        st.error("set OPENAI_API_KEY")
         return
     
     if st.button("Generate Quiz"):
         progress_bar = st.progress(0)
         status_text = st.empty()
         
-        # creazione event loop
+        # create event loop
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         
         try:
-            # elaborazione dei pdf se presenti
+            # process pdfs if present
             if uploaded_files:
                 total_files = len(uploaded_files)
                 for file_index, pdf_file in enumerate(uploaded_files):
-                    status_text.text(f"elaborazione del pdf {file_index+1} di {total_files}: {pdf_file.name}")
+                    status_text.text(f"processing pdf {file_index+1} of {total_files}: {pdf_file.name}")
                     progress_bar.progress(file_index / total_files)
                     
-                    # salvataggio temporaneo del file caricato
+                    # temporary save of uploaded file
                     temp_path = f"temp_{pdf_file.name}"
                     with open(temp_path, "wb") as f:
                         f.write(pdf_file.getbuffer())
                     
                     try:
-                        # estrazione del testo dal pdf
+                        # extract text from pdf
                         pdf_text = extract_text_from_pdf(temp_path)
                         if not pdf_text:
-                            st.error(f"impossibile estrarre il testo da {pdf_file.name}")
+                            st.error(f"impossible to extract text from {pdf_file.name}")
                             continue
                         
-                        # salvo testo raw
+                        # save raw text
                         base_filename = pdf_file.name.replace('.pdf', '')
                         raw_text_path = os.path.join(RAW_TEXT_DIR, f"{base_filename}.txt")
                         save_text_to_file(pdf_text, raw_text_path)
                         
-                        # elaborazione del testo con gli agenti
+                        # process text with agents
                         quiz, base_filename = loop.run_until_complete(
-                            create_quiz_from_text(pdf_text, model, pdf_file.name)
+                            create_quiz_from_text(pdf_text, model, pdf_file.name, language)
                         )
                         
                         if quiz:
-                            # salvataggio del quiz in json
+                            # save quiz in json
                             output_path = os.path.join(JSON_OUTPUT_DIR, f"{base_filename}_quiz.json")
                             with open(output_path, "w") as f:
                                 json.dump(quiz.model_dump(), f, indent=2, ensure_ascii=False)
                             
-                            # visualizzazione del quiz in streamlit
-                            st.write(f"### quiz per {base_filename}")
+                            # display quiz in streamlit
+                            st.write(f"### quiz for {base_filename}")
                             for question_index, question in enumerate(quiz.questions, 1):
-                                st.write(f"\n**domanda {question_index}:** {question.question_text}")
+                                st.write(f"\n**question {question_index}:** {question.question_text}")
                                 for answer in question.answers:
-                                    st.write(f"- ({answer.score} punti) {answer.text}")
+                                    st.write(f"- ({answer.score} points) {answer.text}")
                             
                             st.write("---")
                     
                     finally:
-                        # pulizia file temporaneo
+                        # cleanup temporary file
                         if os.path.exists(temp_path):
                             os.remove(temp_path)
             
-            # elaborazione degli url se presenti
+            # process urls if present
             if urls_list:
                 total_urls = len(urls_list)
                 for url_index, url in enumerate(urls_list):
-                    status_text.text(f"elaborazione dell'url {url_index+1} di {total_urls}: {url}")
+                    status_text.text(f"processing url {url_index+1} of {total_urls}: {url}")
                     progress_bar.progress(url_index / total_urls)
                     
                     try:
-                        # estrazione del testo dall'url
+                        # extract text from url
                         url_text = extract_text_from_url(url)
                         if not url_text:
-                            st.error(f"impossibile estrarre il testo da {url}")
+                            st.error(f"impossible to extract text from {url}")
                             continue
                         
-                        # estrazione del nome file dall'url
+                        # extract filename from url
                         base_filename = get_filename_from_url(url)
                         
-                        # salvataggio testo raw
+                        # save raw text
                         raw_text_path = os.path.join(RAW_TEXT_DIR, f"{base_filename}.txt")
                         save_text_to_file(url_text, raw_text_path)
                         
-                        # elaborazione del testo con gli agenti
+                        # process text with agents
                         quiz, base_filename = loop.run_until_complete(
-                            create_quiz_from_text(url_text, model, base_filename)
+                            create_quiz_from_text(url_text, model, base_filename, language)
                         )
                         
                         if quiz:
-                            # salvataggio del quiz in json
+                            # save quiz in json
                             output_path = os.path.join(JSON_OUTPUT_DIR, f"{base_filename}_quiz.json")
                             with open(output_path, "w") as f:
                                 json.dump(quiz.model_dump(), f, indent=2, ensure_ascii=False)
                             
-                            # visualizzazione del quiz
-                            st.write(f"### quiz per {url}")
+                            # display quiz
+                            st.write(f"### quiz for {url}")
                             for question_index, question in enumerate(quiz.questions, 1):
-                                st.write(f"\n**domanda {question_index}:** {question.question_text}")
+                                st.write(f"\n**question {question_index}:** {question.question_text}")
                                 for answer in question.answers:
-                                    st.write(f"- ({answer.score} punti) {answer.text}")
+                                    st.write(f"- ({answer.score} points) {answer.text}")
                             
                             st.write("---")
                     
                     except Exception as e:
-                        st.error(f"errore nell'elaborazione dell'url {url}: {str(e)}")
-                        logging.error(f"errore nell'elaborazione dell'url {url}: {str(e)}")
+                        st.error(f"error processing url {url}: {str(e)}")
+                        logging.error(f"error processing url {url}: {str(e)}")
                         logging.error(traceback.format_exc())
             
-            status_text.text("elaborazione completata!")
+            status_text.text("processing completed!")
             progress_bar.progress(1.0)
             
         except Exception as e:
-            st.error(f"si è verificato un errore: {str(e)}")
-            logging.error(f"errore nel ciclo principale di elaborazione: {str(e)}")
+            st.error(f"an error occurred: {str(e)}")
+            logging.error(f"error in main processing loop: {str(e)}")
             logging.error(traceback.format_exc())
         
         finally:
-            # chiusura event loop
+            # close event loop
             loop.close()
         
-        st.success("tutti i file sono stati elaborati!")
+        st.success("all files have been processed!")
 
 if __name__ == "__main__":
     main() 
