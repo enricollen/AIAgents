@@ -117,7 +117,7 @@ crewAI/quiz_maker/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/quiz-maker
+   git clone https://github.com/enricollen/AIAgents
    cd crewAI/quiz_maker
    ```
 
