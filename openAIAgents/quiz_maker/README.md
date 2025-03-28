@@ -23,7 +23,7 @@ The system supports both a **Streamlit-based interface** and **agent-based proce
    - From URLs using `WebBaseLoader` + `Html2TextTransformer`
    
 2. **Summarize Content**  
-   - An agent (`text summarizer`) extracts and organizes key concepts (in Italian)
+   - An agent (`text summarizer`) extracts and organizes key concepts
 
 3. **Generate Quiz**  
    - An agent (`quiz generator`) creates 10 multiple-choice questions:
