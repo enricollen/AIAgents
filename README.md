@@ -26,7 +26,7 @@ This repository is a collection of agent-based projects designed to test and sho
 │   │   ├── podcast_creator_from_url_ollama_coquiTTS/   # Local podcast creation using CrewAI
 |   |   ├── podcast_creator_from_rss_feed_openai_api/   # Podcast creation using RSS feeds and APIs
 │   │   └── quiz_maker/                                 # Quiz Creation starting from a URL
-|   ├── OpenAIAgentSDK/                                 # Projects built using OpenAI Agent SDK
+|   ├── OpenAIAgents/                                   # Projects built using OpenAI Agent SDK
 │   │   └── quiz_maker/                                 # Quiz Creation starting from a list of URLs and/or pdf files
 │   ├── Phidata/                                        # Projects built using Phidata framework
 │   │   └── podcast_creator_from_url_ollama_coquiTTS/   # Local podcast creation using Phidata
