@@ -42,15 +42,21 @@ The system supports both a **Streamlit-based interface** and **agent-based proce
 
 ```plaintext
 quiz_maker/
-├── raw_pdf_text/
+├── raw_text/
 │   └── *.txt (extracted original content)
-├── summarized_pdf_text/
+├── summarized_text/
 │   └── *_summary.txt (agent-generated summaries)
 ├── json_question_answers/
 │   └── *_quiz.json (final quizzes in JSON format)
-├── main.py
-├── requirements.txt
-├── .env_example
+├── excel_question_answers/
+│   └── *.xlsx (Excel format quizzes)
+├── main.py (main application file)
+├── excel_converter.py (Excel conversion utilities)
+├── utils.py (utility functions)
+├── ai_agent.py (AI agent implementation)
+├── models.py (data models)
+├── requirements.txt (dependencies)
+├── .env_example (environment variables template)
 └── README.md
 ```
 ---
@@ -79,7 +85,7 @@ Each quiz is saved with this structure:
 ---
 ## 📺 App UI
 
-Here’s a screenshot of the Streamlit interface:
+Here's a screenshot of the Streamlit interface:
 ![AppUI](https://github.com/enricollen/AIAgents/blob/main/openAIAgents/quiz_maker/img/streamlit_ui_1.jpg?raw=true)
 
 ---
