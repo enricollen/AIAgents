@@ -63,7 +63,7 @@ def main():
     # model selection
     model = st.selectbox(
         "Select model:",
-        ["gpt-3.5-turbo", "gpt-4o-mini", "gpt-4o"],
+        ["gpt-4.1", "gpt-4o-mini", "gpt-4o"],
         index=1  # default gpt-4o-mini
     )
     
