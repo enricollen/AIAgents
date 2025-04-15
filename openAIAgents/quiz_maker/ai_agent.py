@@ -74,7 +74,7 @@ class QuizGenerator:
                 make sure each question has exactly 4 answers.
                 """,
                 output_type=Quiz,
-                model="gpt-4o"
+                model=self.model
             )
             quiz_result = await Runner.run(quiz_generator, summary_result.final_output)
             
